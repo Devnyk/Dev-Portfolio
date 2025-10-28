@@ -148,7 +148,7 @@ const Contact = () => {
 
   // Theme-based styles using Tailwind's dark: prefix for consistency
   const themeClasses = {
-    section: "py-12 lg:py-20 bg-gray-50 dark:bg-black text-gray-900 dark:text-white transition-all duration-500",
+    section: "py-8 lg:py-20 bg-gray-50 dark:bg-black text-gray-900 dark:text-white transition-all duration-500",
     title: "text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white",
     accent: "w-24 h-1 mx-auto rounded bg-blue-600 dark:bg-blue-400",
     subtitle: "text-xl lg:text-2xl font-semibold mb-8 lg:mb-12 text-gray-900 dark:text-white",

@@ -38,13 +38,6 @@ function App() {
         
         {/* Click Animation Component */}
         <ClickAnimation />
-        
-        {/* Mobile-only Purple Footer - At the very end */}
-        <div className="block md:hidden bg-purple-600 py-3">
-          <div className="text-center">
-            <p className="text-white text-base font-medium">@devnyk</p>
-          </div>
-        </div>
       </div>
   );
 }
