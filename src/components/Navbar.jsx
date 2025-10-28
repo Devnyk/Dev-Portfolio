@@ -15,11 +15,20 @@ const Navbar = () => {
     { name: 'Contact', id: 'contact' }
   ];
 
-  // Handle smooth scrolling to sections
+  // Handle smooth scrolling to sections with offset for mobile
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      // Calculate offset based on screen size
+      const isMobile = window.innerWidth < 768;
+      const offset = isMobile ? 80 : 100; // More offset for mobile
+      
+      const elementPosition = element.offsetTop - offset;
+      
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      });
     }
     setIsMenuOpen(false);
   };
@@ -28,7 +37,9 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const sections = navItems.map(item => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + 100;
+      const isMobile = window.innerWidth < 768;
+      const offset = isMobile ? 120 : 150; // Adjusted for better detection
+      const scrollPosition = window.scrollY + offset;
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];

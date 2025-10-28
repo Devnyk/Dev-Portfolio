@@ -37,12 +37,198 @@ html {
   to { transform: rotate(360deg); }
 }
 
-.float-animation {
-  animation: float 3s ease-in-out infinite;
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-.rotate-animation {
-  animation: rotate 8s linear infinite;
+@keyframes mongoVertical {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.7); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes circularFill {
+  0% { 
+    transform: scale(0) translateY(100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% { 
+    transform: scale(3) translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes borderAppear {
+  0%, 99% { 
+    border-color: transparent;
+  }
+  100% { 
+    border-color: white;
+  }
+}
+
+@keyframes borderAppearDark {
+  0%, 99% { 
+    border-color: transparent;
+  }
+  100% { 
+    border-color: black;
+  }
+}
+
+/* Desktop-only animations */
+@media (min-width: 1024px) {
+  .lg\:float-animation {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .lg\:rotate-animation {
+    animation: rotate 8s linear infinite;
+  }
+
+  .lg\:mongo-vertical-animation {
+    animation: mongoVertical 2.5s ease-in-out infinite;
+  }
+}
+
+/* Keep shimmer for all devices as it's subtle */
+.shimmer-effect {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.twinkle-animation {
+  position: relative;
+}
+
+.twinkle-animation::before {
+  content: '✨';
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  font-size: 24px;
+  color: #fbbf24;
+  animation: twinkle 2s ease-in-out infinite;
+  text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+}
+
+.twinkle-animation::after {
+  content: '⭐';
+  position: absolute;
+  bottom: -10px;
+  left: -10px;
+  font-size: 20px;
+  color: #f59e0b;
+  animation: twinkle 2s ease-in-out infinite 1s;
+  text-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+}
+
+/* Resume button circular fill animation */
+.resume-button {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+
+.resume-button::before {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  background: white;
+  border-radius: 50%;
+  transform: translateX(-50%) scale(0);
+  transition: transform 0.4s ease-out;
+  z-index: 1;
+}
+
+.resume-button::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0s ease-out 0.4s, border-color 0s ease-out 0.4s;
+  z-index: 3;
+}
+
+.dark .resume-button::before {
+  background: black;
+}
+
+.resume-button:hover::before {
+  transform: translateX(-50%) scale(6);
+}
+
+.resume-button:hover::after {
+  opacity: 1;
+  border-color: white;
+}
+
+.dark .resume-button:hover::after {
+  border-color: black;
+}
+
+.resume-button .button-content {
+  position: relative;
+  z-index: 2;
+  transition: color 0.4s ease-out;
+}
+
+.resume-button:hover .button-content {
+  color: black;
+}
+
+.dark .resume-button:hover .button-content {
+  color: white;
+}
+
+/* Enhanced backdrop blur support */
+.backdrop-blur-custom {
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Optimized image handling for better coverage */
+.project-image-container {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  object-fit: cover;
+  will-change: transform;
+}
+
+/* Smooth animations with hardware acceleration */
+.motion-safe {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Fix for background image positioning */
+[style*="background-image"] {
+  background-attachment: scroll;
 }
 
 /* Dark mode styles */
@@ -55,4 +241,150 @@ html {
 body:not(.dark) {
   background-color: #ffffff;
   color: #000000;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  /* Reduce overall padding and margins on mobile */
+  .mobile-compact {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  /* Optimize text sizes for mobile readability */
+  .mobile-text-sm {
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
+  }
+  
+  /* Compact spacing for mobile cards */
+  .mobile-card-spacing {
+    gap: 1rem !important;
+  }
+  
+  /* Better touch targets for mobile */
+  .mobile-touch-target {
+    min-height: 44px !important;
+    min-width: 44px !important;
+  }
+  
+  /* Optimize project cards for mobile */
+  .project-card-mobile {
+    padding: 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  
+  /* Compact skill cards for mobile */
+  .skill-card-mobile {
+    height: 280px !important;
+    padding: 1rem !important;
+  }
+  
+  /* Mobile-friendly button sizing */
+  .mobile-button {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+}
+
+/* Improved mobile scrolling */
+@media (max-width: 640px) {
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Reduce section spacing on small screens */
+  section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+  
+  /* Optimize container padding */
+  .container-mobile {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* Reduce motion for better mobile performance */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Extra small screens optimization */
+@media (max-width: 480px) {
+  /* Further reduce spacing on very small screens */
+  .xs-compact {
+    padding: 0.75rem !important;
+  }
+  
+  /* Optimize text for very small screens */
+  .xs-text {
+    font-size: 0.8rem !important;
+    line-height: 1.2rem !important;
+  }
+}
+
+/* Enhanced shadows for light mode */
+.light-mode-shadow {
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.light-mode-shadow-hover {
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+/* Better borders for light mode */
+.light-mode-border {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.light-mode-border-hover {
+  border: 1px solid rgba(59, 130, 246, 0.5);
+}
+
+/* Enhanced contrast for skill cards in light mode */
+.skill-card-light {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.skill-card-light:hover {
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+/* Remove default body margin and padding */
+body, html {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure no bottom spacing on mobile */
+@media (max-width: 768px) {
+  body {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  
+  /* Remove any potential bottom spacing from the main container */
+  #root {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
 }

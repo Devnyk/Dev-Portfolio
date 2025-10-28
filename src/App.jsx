@@ -6,6 +6,7 @@ import Education from './components/Education';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
+import ClickAnimation from './components/ClickAnimation';
 
 function App() {
   return (
@@ -34,6 +35,16 @@ function App() {
           pauseOnHover
           theme="dark"
         />
+        
+        {/* Click Animation Component */}
+        <ClickAnimation />
+        
+        {/* Mobile-only Purple Footer - At the very end */}
+        <div className="block md:hidden bg-purple-600 py-3">
+          <div className="text-center">
+            <p className="text-white text-base font-medium">@devnyk</p>
+          </div>
+        </div>
       </div>
   );
 }

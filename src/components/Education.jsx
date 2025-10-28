@@ -8,7 +8,7 @@ const Education = () => {
       institution: 'Biju Patnaik University of Technology, Rourkela',
       degree: 'B.Tech, Computer Science and Engineering',
       duration: 'Sep 2020 - May 2024',
-      cgpa: '8.66/10',
+      cgpa: '7.76/10',
       icon: 'ri-graduation-cap-line',
       color: 'blue'
     },
@@ -17,31 +17,31 @@ const Education = () => {
       institution: 'DAV Public School, Brajrajnagar',
       degree: 'Class 12 (Science)',
       duration: 'Aug 2018 - May 2020',
-      cgpa: '9.78/10',
+      cgpa: '7.2/10',
       icon: 'ri-book-open-line',
       color: 'green'
     }
   ];
 
   return (
-    <section id="education" className="py-20 bg-white dark:bg-black">
+    <section id="education" className="py-12 lg:py-20 bg-white dark:bg-black">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="animate-fade-in">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Education</h2>
+          <div className="text-center mb-8 lg:mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Education</h2>
             <div className="w-24 h-1 mx-auto rounded bg-blue-600 dark:bg-blue-400"></div>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4 lg:space-y-6">
             {educationData.map((edu, index) => (
               <div
                 key={edu.id}
-                className={`bg-gray-50 dark:bg-gray-900 rounded-2xl p-6 lg:p-8 border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 hover:shadow-lg dark:hover:shadow-gray-900/20 hover:scale-[1.02] hover:-translate-y-1 group animate-slide-up`}
+                className={`bg-gray-50 dark:bg-gray-900 rounded-xl lg:rounded-2xl p-4 lg:p-6 xl:p-8 border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 hover:shadow-lg dark:hover:shadow-gray-900/20 hover:scale-[1.02] hover:-translate-y-1 group animate-slide-up`}
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
-                <div className="flex items-start gap-4">
-                  <div className={`flex-shrink-0 w-14 h-14 ${
+                <div className="flex items-start gap-3 lg:gap-4">
+                  <div className={`flex-shrink-0 w-12 h-12 lg:w-14 lg:h-14 ${
                     edu.color === 'blue' 
                       ? 'bg-blue-100 dark:bg-blue-900/30 group-hover:bg-blue-200 dark:group-hover:bg-blue-900/50' 
                       : 'bg-green-100 dark:bg-green-900/30 group-hover:bg-green-200 dark:group-hover:bg-green-900/50'
@@ -50,16 +50,16 @@ const Education = () => {
                       edu.color === 'blue' 
                         ? 'text-blue-600 dark:text-blue-400' 
                         : 'text-green-600 dark:text-green-400'
-                    } text-2xl`}></i>
+                    } text-xl lg:text-2xl`}></i>
                   </div>
                   
                   <div className="flex-1">
-                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-2 mb-3">
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-2 lg:gap-4 mb-3">
+                      <div className="flex-1">
+                        <h3 className="text-lg lg:text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 leading-tight">
                           {edu.institution}
                         </h3>
-                        <p className="text-lg text-gray-700 dark:text-gray-300 mb-2">
+                        <p className="text-base lg:text-lg text-gray-700 dark:text-gray-300 mb-2">
                           {edu.degree}
                         </p>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -71,7 +71,7 @@ const Education = () => {
                         edu.color === 'blue' 
                           ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' 
                           : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
-                      } px-4 py-2 rounded-full text-sm font-semibold hover:scale-110 transition-transform duration-300`}>
+                      } px-3 py-1.5 lg:px-4 lg:py-2 rounded-full text-sm font-semibold hover:scale-110 transition-transform duration-300 self-start lg:self-center`}>
                         CGPA: {edu.cgpa}
                       </div>
                     </div>

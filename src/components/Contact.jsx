@@ -5,12 +5,38 @@ const Contact = () => {
   const { isDark } = useTheme(); // Use the theme context
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [copiedItem, setCopiedItem] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
   const [errors, setErrors] = useState({});
+
+  // Copy to clipboard function
+  const copyToClipboard = async (text, itemType) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedItem(itemType);
+      setTimeout(() => setCopiedItem(null), 2000);
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopiedItem(itemType);
+      setTimeout(() => setCopiedItem(null), 2000);
+    }
+  };
+
+  // Redirect to LinkedIn
+  const redirectToLinkedIn = () => {
+    window.open('https://www.linkedin.com/in/debasish-nayak1/', '_blank');
+  };
 
   const validateForm = () => {
     const newErrors = {};
@@ -81,7 +107,9 @@ const Contact = () => {
         </svg>
       ),
       label: 'Email',
-      value: 'dev842825@gmail.com'
+      value: 'debasishnayak3110@gmail.com',
+      bgColor: 'bg-orange-100 dark:bg-orange-900/30',
+      iconColor: 'text-orange-600 dark:text-orange-400'
     },
     {
       icon: (
@@ -90,7 +118,9 @@ const Contact = () => {
         </svg>
       ),
       label: 'Phone',
-      value: '+91 75024 61630'
+      value: '+91 7008029540',
+      bgColor: 'bg-green-100 dark:bg-green-900/30',
+      iconColor: 'text-green-600 dark:text-green-400'
     },
     {
       icon: (
@@ -99,7 +129,9 @@ const Contact = () => {
         </svg>
       ),
       label: 'Location',
-      value: 'Odisha, India'
+      value: 'Odisha, India',
+      bgColor: 'bg-purple-100 dark:bg-purple-900/30',
+      iconColor: 'text-purple-600 dark:text-purple-400'
     },
     {
       icon: (
@@ -108,22 +140,24 @@ const Contact = () => {
         </svg>
       ),
       label: 'LinkedIn',
-      value: 'linkedin.com/in/debasish-nayak1/'
+      value: 'debasish-nayak1',
+      bgColor: 'bg-blue-100 dark:bg-blue-900/30',
+      iconColor: 'text-blue-600 dark:text-blue-400'
     }
   ];
 
   // Theme-based styles using Tailwind's dark: prefix for consistency
   const themeClasses = {
-    section: " py-20 bg-gray-50 dark:bg-black text-gray-900 dark:text-white transition-all duration-500",
-    title: "text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white",
+    section: "py-12 lg:py-20 bg-gray-50 dark:bg-black text-gray-900 dark:text-white transition-all duration-500",
+    title: "text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white",
     accent: "w-24 h-1 mx-auto rounded bg-blue-600 dark:bg-blue-400",
-    subtitle: "text-2xl font-semibold mb-12 text-gray-900 dark:text-white",
+    subtitle: "text-xl lg:text-2xl font-semibold mb-8 lg:mb-12 text-gray-900 dark:text-white",
     iconBg: "w-12 h-12 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm dark:shadow-none",
     iconColor: "text-gray-600 dark:text-gray-400",
-    labelText: "text-sm font-medium text-gray-500 dark:text-gray-400 mb-1",
-    valueText: "text-lg text-gray-900 dark:text-white font-medium",
-    formBg: "p-8 rounded-xl shadow-lg dark:shadow-2xl bg-white dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 relative",
-    formTitle: "text-2xl font-semibold mb-8 text-gray-900 dark:text-white",
+    labelText: "text-xs font-medium text-gray-500 dark:text-gray-400 mb-0.5 leading-tight",
+    valueText: "text-sm lg:text-base text-gray-900 dark:text-white font-medium",
+    formBg: "p-6 lg:p-8 rounded-xl shadow-lg dark:shadow-2xl bg-white dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 relative",
+    formTitle: "text-xl lg:text-2xl font-semibold mb-4 lg:mb-6 text-gray-900 dark:text-white",
     label: "block text-sm mb-2 text-gray-700 dark:text-gray-300 font-medium",
     input: "w-full p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:bg-white dark:focus:bg-gray-800 transition-colors duration-300",
     submitBtn: isSubmitting 
@@ -135,167 +169,194 @@ const Contact = () => {
   };
 
   return (
-    <>
-      <section id="contact" className={themeClasses.section}>
-        <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Section Header */}
-          <div className="text-center mb-16">
-            <h2 className={themeClasses.title}>Contact Me</h2>
-            <div className={themeClasses.accent}></div>
-          </div>
-          
-          <div className=" grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start max-w-5xl mx-auto">
-            {/* Left Side - Contact Details */}
-            <div className="space-y-8">
-              <div>
-                <h3 className={themeClasses.subtitle}>Get In Touch</h3>
-              </div>
-              
-              <div className="space-y-8">
-                {contactItems.map((item, index) => (
-                  <div key={index} className="flex items-center space-x-6">
-                    {/* Icon Circle */}
-                    <div className={themeClasses.iconBg}>
-                      <div className={themeClasses.iconColor}>
-                        {item.icon}
-                      </div>
-                    </div>
-                    
-                    {/* Content */}
-                    <div className="flex-1">
-                      <h4 className={themeClasses.labelText}>{item.label}</h4>
-                      <p className={themeClasses.valueText}>{item.value}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+    <section id="contact" className={themeClasses.section}>
+      <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-8 lg:mb-16">
+          <h2 className={themeClasses.title}>Contact Me</h2>
+          <div className={themeClasses.accent}></div>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-24 items-start max-w-5xl mx-auto">
+          {/* Left Side - Contact Details */}
+          <div className="space-y-6 lg:space-y-8">
+            <div>
+              <h3 className={themeClasses.subtitle}>Get In Touch</h3>
             </div>
             
-            {/* Right Side - Contact Form */}
-            <div className="relative">
-              <div className={themeClasses.formBg}>
-                {/* Form Content */}
-                <div className={`transition-opacity duration-300 ${showSuccessModal ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                  <h3 className={themeClasses.formTitle}>Send Me a Message</h3>
+            <div className="space-y-6 lg:space-y-8">
+              {contactItems.map((item, index) => (
+                <div key={index} className="flex items-center space-x-4 lg:space-x-6">
+                  {/* Icon Circle with colored background */}
+                  <div className={`w-12 h-12 ${item.bgColor} rounded-full flex items-center justify-center flex-shrink-0 shadow-sm`}>
+                    <div className={item.iconColor}>
+                      {item.icon}
+                    </div>
+                  </div>
                   
-                  <div className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {/* Name */}
-                      <div>
-                        <label htmlFor="name" className={themeClasses.label}>
-                          Name
-                        </label>
-                        <input
-                          type="text"
-                          id="name"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                          className={themeClasses.input}
-                          placeholder="Your name"
-                        />
-                        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                  {/* Content */}
+                  <div className="flex-1">
+                    <h4 className={themeClasses.labelText}>{item.label}</h4>
+                    {item.label === 'Location' ? (
+                      <p className={`${themeClasses.valueText}`}>
+                        {item.value}
+                      </p>
+                    ) : (
+                      <div className="flex items-center gap-1">
+                        <p className={`${themeClasses.valueText} ${item.label === 'LinkedIn' ? '' : 'break-all'}`}>
+                          {item.value}
+                        </p>
+                        
+                        {/* Action Icon - positioned right after text */}
+                        {item.label === 'LinkedIn' ? (
+                          <button
+                            onClick={redirectToLinkedIn}
+                            className="p-1.5 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 group flex-shrink-0"
+                            title="Visit LinkedIn Profile"
+                          >
+                            <i className="ri-external-link-line text-gray-400 dark:text-gray-500 text-base group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors duration-200"></i>
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => copyToClipboard(item.value, item.label)}
+                            className="p-1.5 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 group flex-shrink-0"
+                            title={copiedItem === item.label ? "Copied!" : `Copy ${item.label}`}
+                          >
+                            <i className={`${copiedItem === item.label ? 'ri-check-line text-green-500' : 'ri-file-copy-line text-gray-400 dark:text-gray-500'} text-base group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors duration-200`}></i>
+                          </button>
+                        )}
                       </div>
-                      
-                      {/* Email */}
-                      <div>
-                        <label htmlFor="email" className={themeClasses.label}>
-                          Email
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleInputChange}
-                          className={themeClasses.input}
-                          placeholder="Your email"
-                        />
-                        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                      </div>
-                    </div>
-                    
-                    {/* Message */}
-                    <div>
-                      <label htmlFor="message" className={themeClasses.label}>
-                        Message
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleInputChange}
-                        className={`${themeClasses.input} resize-none`}
-                        rows="5"
-                        placeholder="Your message"
-                      ></textarea>
-                      {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
-                    </div>
-                    
-                    {/* Submit Button */}
-                    <button
-                      type="button"
-                      onClick={handleSubmit}
-                      disabled={isSubmitting}
-                      className={`w-full py-3 px-6 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 ${themeClasses.submitBtn}`}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <div className="animate-spin rounded-full h-4 w-4 border-2 border-t-transparent border-gray-300"></div>
-                          <span>Sending...</span>
-                        </>
-                      ) : (
-                        <span>Submit Message</span>
-                      )}
-                    </button>
+                    )}
                   </div>
                 </div>
-
-                {/* Success Modal */}
-                {showSuccessModal && (
-                  <div className={themeClasses.successModal}>
-                    <div className="mx-auto mb-4 w-16 h-16 bg-green-600 rounded-full flex items-center justify-center animate-bounce">
-                      <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
+              ))}
+            </div>
+          </div>
+          
+          {/* Right Side - Contact Form */}
+          <div className="relative">
+            <div className={themeClasses.formBg}>
+              {/* Form Content */}
+              <div className={`transition-opacity duration-300 ${showSuccessModal ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                <h3 className={themeClasses.formTitle}>Send Me a Message</h3>
+                
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Name */}
+                    <div>
+                      <label htmlFor="name" className={themeClasses.label}>
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        className={`${themeClasses.input} py-2.5`}
+                        placeholder="Your name"
+                      />
+                      {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                     </div>
                     
-                    <h4 className={themeClasses.successTitle}>Message Sent Successfully!</h4>
-                    <p className={themeClasses.successText}>
-                      Thank you for reaching out. I'll get back to you as soon as possible.
-                    </p>
-                    
-                    <button
-                      onClick={handleSendAnother}
-                      className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors duration-200"
-                    >
-                      Send Another Message
-                    </button>
+                    {/* Email */}
+                    <div>
+                      <label htmlFor="email" className={themeClasses.label}>
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className={`${themeClasses.input} py-2.5`}
+                        placeholder="Your email"
+                      />
+                      {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                    </div>
                   </div>
-                )}
+                  
+                  {/* Message */}
+                  <div>
+                    <label htmlFor="message" className={themeClasses.label}>
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      className={`${themeClasses.input} resize-none py-2.5`}
+                      rows="3"
+                      placeholder="Your message"
+                    ></textarea>
+                    {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+                  </div>
+                  
+                  {/* Submit Button */}
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                    className={`w-full py-2.5 px-6 rounded-lg font-medium transition-all duration-200 flex items-center justify-center space-x-2 ${themeClasses.submitBtn}`}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-2 border-t-transparent border-gray-300"></div>
+                        <span>Sending...</span>
+                      </>
+                    ) : (
+                      <span>Submit Message</span>
+                    )}
+                  </button>
+                </div>
               </div>
+
+              {/* Success Modal */}
+              {showSuccessModal && (
+                <div className={themeClasses.successModal}>
+                  <div className="mx-auto mb-4 w-16 h-16 bg-green-600 rounded-full flex items-center justify-center animate-bounce">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                  
+                  <h4 className={themeClasses.successTitle}>Message Sent Successfully!</h4>
+                  <p className={themeClasses.successText}>
+                    Thank you for reaching out. I'll get back to you as soon as possible.
+                  </p>
+                  
+                  <button
+                    onClick={handleSendAnother}
+                    className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors duration-200"
+                  >
+                    Send Another Message
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
+      </div>
+      
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
         
-        <style jsx>{`
-          @keyframes fade-in {
-            from {
-              opacity: 0;
-              transform: scale(0.9);
-            }
-            to {
-              opacity: 1;
-              transform: scale(1);
-            }
-          }
-          
-          .animate-fade-in {
-            animation: fade-in 0.3s ease-out;
-          }
-        `}</style>
-      </section>
-    </>
+        .animate-fade-in {
+          animation: fade-in 0.3s ease-out;
+        }
+      `}</style>
+    </section>
   );
 };
 
