@@ -138,14 +138,9 @@ const Skills = () => {
           viewport={{ once: true, amount: 0.2 }}
         >
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <motion.h2
-              variants={headerVariants}
-              className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
-            >
-              My Skills
-            </motion.h2>
-            <div className="w-24 h-1 mx-auto rounded bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400"></div>
+          <div className="text-center mb-8 lg:mb-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white">My Skills</h2>
+            <div className="w-24 h-1 mx-auto rounded bg-blue-600 dark:bg-blue-400"></div>
           </div>
 
           {/* Skills Grid - 2x2 Layout with optimized spacing */}
