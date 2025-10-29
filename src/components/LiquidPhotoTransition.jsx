@@ -11,7 +11,7 @@ const LiquidPhotoTransition = () => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
@@ -24,15 +24,15 @@ const LiquidPhotoTransition = () => {
     const handleScroll = () => {
       const rect = containerRef.current.getBoundingClientRect();
       const isInView = rect.top < window.innerHeight && rect.bottom > 0;
-      
+
       if (isInView) {
         setShowMobileLabel(true);
-        
+
         // Clear existing timeout
         if (timeoutRef.current) {
           clearTimeout(timeoutRef.current);
         }
-        
+
         // Hide after 3 seconds
         timeoutRef.current = setTimeout(() => {
           setShowMobileLabel(false);
@@ -41,7 +41,7 @@ const LiquidPhotoTransition = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       if (timeoutRef.current) {
@@ -56,21 +56,20 @@ const LiquidPhotoTransition = () => {
       <div className="smooth-photo-container relative w-96 h-[28rem] rounded-2xl overflow-hidden mx-auto group">
         {/* Simple Blue Border */}
         <div className="absolute inset-0 rounded-2xl border-2 border-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-        
+
         {/* Inner Container */}
         <div className="absolute inset-0 rounded-2xl overflow-hidden">
           <img
-            src="/src/assets/dev1.png"
+            src="/dev1.png"
             alt="Debasish Nayak"
             className="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-500 ease-out"
           />
-          
+
           {/* Glassmorphism Label Slide Up */}
-          <div className={`absolute bottom-0 left-0 right-0 bg-black/20 backdrop-blur-md border-t border-white/10 transform transition-transform duration-400 ease-out rounded-b-2xl ${
-            isMobile 
+          <div className={`absolute bottom-0 left-0 right-0 bg-black/20 backdrop-blur-md border-t border-white/10 transform transition-transform duration-400 ease-out rounded-b-2xl ${isMobile
               ? (showMobileLabel ? 'translate-y-0' : 'translate-y-full')
               : 'translate-y-full group-hover:translate-y-0'
-          }`}>
+            }`}>
             <div className="px-4 py-4 flex items-center justify-center gap-1">
               <i className="ri-arrow-up-line text-white text-lg transform rotate-45"></i>
               <div className="flex items-center gap-1">
