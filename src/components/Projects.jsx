@@ -82,7 +82,7 @@ const Projects = () => {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
               Projects
             </h2>
-            <div className="w-24 h-1 mx-auto rounded bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400"></div>
+            <div className="w-24 h-1 mx-auto rounded bg-blue-600 dark:bg-blue-400"></div>
           </div>
 
           <div className="space-y-8 lg:space-y-12">

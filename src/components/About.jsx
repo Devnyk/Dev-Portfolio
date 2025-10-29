@@ -2,23 +2,12 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import 'remixicon/fonts/remixicon.css';
-import Lottie from 'lottie-react';
-import aiStarOrbitAnimation from '../assets/ai star orbit.json';
+import LiquidPhotoTransition from './LiquidPhotoTransition';
 
 const About = () => {
-  const [isDesktop, setIsDesktop] = useState(false);
   const [emailCopied, setEmailCopied] = useState(false);
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
+  const [arrowKey, setArrowKey] = useState(0); // Key to trigger arrow animation
+  const [isInView, setIsInView] = useState(false);
 
   // Copy email to clipboard
   const copyEmailToClipboard = async () => {
@@ -39,6 +28,57 @@ const About = () => {
       setTimeout(() => setEmailCopied(false), 2000);
     }
   };
+
+  // Trigger arrow animation
+  const triggerArrowAnimation = () => {
+    setArrowKey(prev => prev + 1);
+  };
+
+  // Theme change detection
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+          const isDark = document.documentElement.classList.contains('dark');
+          triggerArrowAnimation();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Scroll detection for About section
+  useEffect(() => {
+    const aboutSection = document.getElementById('about');
+    if (!aboutSection) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isInView) {
+            setIsInView(true);
+            triggerArrowAnimation();
+          } else if (!entry.isIntersecting && isInView) {
+            setIsInView(false);
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of section is visible
+        rootMargin: '-50px 0px -50px 0px'
+      }
+    );
+
+    observer.observe(aboutSection);
+
+    return () => observer.disconnect();
+  }, [isInView]);
 
   // Animation variants
   const containerVariants = {
@@ -61,55 +101,95 @@ const About = () => {
     }
   };
 
-  const skillIcons = [
-    { name: 'React.js', icon: 'ri-reactjs-line', type: 'remix', className: 'lg:rotate-animation text-blue-400' },
-    { name: 'Next.js', icon: 'ri-nextjs-line', type: 'remix', className: 'lg:float-animation text-gray-800 dark:text-white' },
-    { name: 'MongoDB', icon: 'ri-database-2-line', type: 'remix', className: 'lg:mongo-vertical-animation text-green-500' },
-    { name: 'Gen AI', icon: aiStarOrbitAnimation, type: 'lottie', className: '' }
-  ];
+  // Arrow bounce animation (triggers on load, theme change, and scroll)
+  const arrowVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        delay: 0.3,
+        ease: "easeOut"
+      }
+    },
+    bounce: {
+      y: [0, -8, 0],
+      rotate: [-45, -35, -45],
+      transition: {
+        duration: 0.6,
+        delay: 0.8,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+
+
+
 
   // Resume download/view handler
   const handleResumeClick = () => {
     // Google Drive direct view link - modified for better compatibility
-    const resumeUrl = 'https://drive.google.com/file/d/11qN6Y5ZqhM9uC6EIhgd49phQ6MNcwSI6/view?usp=sharing';
+    const resumeUrl = 'https://drive.google.com/file/d/11qN6Y5ZqhM9uC6EIhgd49phQ6MNcwSI6/view?usp=drive_link';
     window.open(resumeUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <section id="about" className="pt-12 lg:pt-16 bg-white dark:bg-black">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-20">
+    <section id="about" className="min-h-screen bg-white dark:bg-black flex items-center">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12 w-full">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16"
+          className="flex flex-col lg:flex-row items-center lg:items-center justify-between gap-8 lg:gap-16"
         >
           {/* Left Section - About Content */}
           <motion.div
             variants={itemVariants}
-            className="flex-1 max-w-2xl"
+            className="flex-1 max-w-2xl mobile-about-content"
           >
+            {/* Greeting */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-4 sm:mt-0 mb-0 sm:mb-2 flex items-center gap-1"
+            >
+              <span className="text-base sm:text-lg lg:text-xl font-satoshi font-normal text-gray-600 dark:text-gray-400">
+                Hi,{' '}
+              </span>
+              <span className="text-base sm:text-lg lg:text-xl font-satoshi font-bold text-blue-600 dark:text-blue-400">
+                I'm
+              </span>
+              <motion.i
+                key={arrowKey} // Force re-animation when key changes
+                className="ri-arrow-down-line text-blue-600 dark:text-blue-400 text-lg sm:text-xl lg:text-2xl transform -rotate-45 ml-1"
+                variants={arrowVariants}
+                initial="hidden"
+                animate={["visible", "bounce"]}
+              ></motion.i>
+            </motion.div>
+
             <motion.h1
               variants={itemVariants}
-              className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-3 lg:mb-4"
+              className="text-2xl sm:text-4xl lg:text-6xl font-satoshi font-bold text-gray-900 dark:text-white mb-1 sm:mb-2 leading-tight"
             >
               Debasish Nayak
             </motion.h1>
 
             <motion.h2
               variants={itemVariants}
-              className="text-lg sm:text-xl lg:text-2xl text-gray-600 dark:text-gray-400 mb-4 lg:mb-6"
+              className="text-sm sm:text-base lg:text-xl text-gray-600 dark:text-gray-400 mb-3 sm:mb-3 font-satoshi"
             >
-              <span className="hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300 cursor-pointer">Frontend Developer</span> <span className="font-bold cursor-pointer transition-all duration-300 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-500 hover:bg-clip-text hover:text-transparent">&</span> <span className="hover:text-pink-500 dark:hover:text-pink-400 transition-colors duration-300 cursor-pointer">UI/UX Enthusiast</span>
+              Frontend Developer & UI/UX Enthusiast
             </motion.h2>
 
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-6 text-gray-600 dark:text-gray-400"
+              className="flex flex-col gap-0 sm:gap-0 mb-4 text-gray-600 dark:text-gray-400"
             >
               <div className="flex items-center gap-2">
                 <i className="ri-mail-line text-orange-500"></i>
-                <span className="text-sm sm:text-base">debasishnayak3110@gmail.com</span>
+                <span className="text-sm lg:text-base font-satoshi">debasishnayak3110@gmail.com</span>
                 <button
                   onClick={copyEmailToClipboard}
                   className="ml-1 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200 group"
@@ -120,16 +200,18 @@ const About = () => {
               </div>
               <div className="flex items-center gap-2">
                 <i className="ri-map-pin-line text-green-500"></i>
-                <span className="text-sm sm:text-base">Odisha, India</span>
+                <span className="text-sm lg:text-base font-satoshi">Odisha, India</span>
               </div>
             </motion.div>
 
             <motion.p
               variants={itemVariants}
-              className="text-base lg:text-lg text-gray-700 dark:text-gray-300 mb-6 lg:mb-8 leading-relaxed"
+              className="text-sm lg:text-lg text-gray-700 dark:text-gray-300 mb-4 leading-relaxed font-satoshi max-w-lg"
             >
               A goal-oriented software developer with experience in building web
-              applications using modern technologies like React, Next.js, and more.
+              applications using modern technologies like{' '}
+              <span className="text-blue-600 font-semibold">React</span>,{' '}
+              <span className="text-blue-600 font-semibold">Gen AI</span>, and more.
               Seeking to leverage my technical skills to deliver exceptional user
               experiences.
             </motion.p>
@@ -137,11 +219,11 @@ const About = () => {
             {/* Action Buttons */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap gap-3 lg:gap-4"
+              className="flex flex-wrap items-center gap-3"
             >
               <button
                 onClick={handleResumeClick}
-                className="resume-button flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 lg:px-6 py-2.5 lg:py-3 rounded-lg font-medium hover:shadow-lg text-sm lg:text-base"
+                className="resume-button flex items-center gap-2 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-2 lg:px-6 lg:py-3 rounded-lg font-satoshi font-medium hover:shadow-lg text-sm lg:text-base"
               >
                 <span className="button-content flex items-center gap-2">
                   <i className="ri-download-line"></i>
@@ -156,18 +238,18 @@ const About = () => {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 w-11 h-11 lg:w-12 lg:h-12 rounded-lg font-medium hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-400 dark:hover:border-purple-500 hover:text-purple-700 dark:hover:text-purple-400"
+                  className="group flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 w-10 h-10 lg:w-12 lg:h-12 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-300 dark:hover:border-purple-500 transition-all duration-200"
                 >
-                  <i className="ri-github-line text-lg"></i>
+                  <i className="ri-github-line text-lg lg:text-xl group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-200"></i>
                 </motion.a>
 
                 <motion.a
                   href="mailto:debasishnayak3110@gmail.com"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 w-11 h-11 lg:w-12 lg:h-12 rounded-lg font-medium hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:border-orange-400 dark:hover:border-orange-500 hover:text-orange-700 dark:hover:text-orange-400"
+                  className="group flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 w-10 h-10 lg:w-12 lg:h-12 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/20 hover:border-orange-300 dark:hover:border-orange-500 transition-all duration-200"
                 >
-                  <i className="ri-mail-line text-lg"></i>
+                  <i className="ri-mail-line text-lg lg:text-xl group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-200"></i>
                 </motion.a>
 
                 <motion.a
@@ -176,50 +258,20 @@ const About = () => {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 w-11 h-11 lg:w-12 lg:h-12 rounded-lg font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-700 dark:hover:text-blue-400"
+                  className="group flex items-center justify-center border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 w-10 h-10 lg:w-12 lg:h-12 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 dark:hover:border-blue-500 transition-all duration-200"
                 >
-                  <i className="ri-linkedin-line text-lg"></i>
+                  <i className="ri-linkedin-line text-lg lg:text-xl group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200"></i>
                 </motion.a>
               </div>
             </motion.div>
           </motion.div>
 
-          {/* Right Section - Core Skills with Animated Icons */}
+          {/* Right Section - Liquid Photo Transition */}
           <motion.div
             variants={itemVariants}
-            className="flex-1 max-w-lg"
+            className="flex-1 max-w-md w-full mt-8 lg:mt-0 lg:flex lg:items-center lg:justify-center"
           >
-            <div className="grid grid-cols-2 gap-6 lg:gap-8">
-              {skillIcons.map((skill) => (
-                <motion.div
-                  key={skill.name}
-                  variants={itemVariants}
-                  className="flex flex-col items-center justify-center p-6 lg:p-8 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-blue-400 dark:hover:border-blue-500 transition-colors duration-200"
-                >
-                  {skill.type === 'remix' ? (
-                    <i className={`${skill.icon} ${skill.className} text-4xl lg:text-5xl mb-3`}></i>
-                  ) : skill.type === 'lottie' ? (
-                    <div className="w-10 h-10 lg:w-12 lg:h-12 mb-3">
-                      <Lottie
-                        animationData={skill.icon}
-                        loop={isDesktop} // Only animate on desktop
-                        autoplay={isDesktop}
-                        style={{ width: '100%', height: '100%' }}
-                      />
-                    </div>
-                  ) : (
-                    <img
-                      src={skill.icon}
-                      alt={skill.name}
-                      className={`${skill.className} w-12 h-12 lg:w-16 lg:h-16 mb-3 object-contain`}
-                    />
-                  )}
-                  <span className="text-sm lg:text-base font-medium text-gray-700 dark:text-gray-300 text-center">
-                    {skill.name}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
+            <LiquidPhotoTransition />
           </motion.div>
         </motion.div>
       </div>

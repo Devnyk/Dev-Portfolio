@@ -148,9 +148,9 @@ const Contact = () => {
 
   // Theme-based styles using Tailwind's dark: prefix for consistency
   const themeClasses = {
-    section: "py-8 lg:py-20 bg-gray-50 dark:bg-black text-gray-900 dark:text-white transition-all duration-500",
+    section: "py-12 lg:py-20 bg-gray-50 dark:bg-black text-gray-900 dark:text-white transition-all duration-500",
     title: "text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white",
-    accent: "w-24 h-1 mx-auto rounded bg-blue-600 dark:bg-blue-400",
+
     subtitle: "text-xl lg:text-2xl font-semibold mb-8 lg:mb-12 text-gray-900 dark:text-white",
     iconBg: "w-12 h-12 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full flex items-center justify-center flex-shrink-0 shadow-sm dark:shadow-none",
     iconColor: "text-gray-600 dark:text-gray-400",
@@ -174,7 +174,7 @@ const Contact = () => {
         {/* Section Header */}
         <div className="text-center mb-8 lg:mb-16">
           <h2 className={themeClasses.title}>Contact Me</h2>
-          <div className={themeClasses.accent}></div>
+          <div className="w-24 h-1 mx-auto rounded bg-blue-600 dark:bg-blue-400"></div>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-24 items-start max-w-5xl mx-auto">

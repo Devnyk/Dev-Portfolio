@@ -21,7 +21,7 @@ const Navbar = () => {
     if (element) {
       // Calculate offset based on screen size
       const isMobile = window.innerWidth < 768;
-      const offset = isMobile ? 80 : 100; // More offset for mobile
+      const offset = isMobile ? 80 : 100; // Back to original offset for proper title positioning
       
       const elementPosition = element.offsetTop - offset;
       
@@ -38,7 +38,7 @@ const Navbar = () => {
     const handleScroll = () => {
       const sections = navItems.map(item => document.getElementById(item.id));
       const isMobile = window.innerWidth < 768;
-      const offset = isMobile ? 120 : 150; // Adjusted for better detection
+      const offset = isMobile ? 120 : 150; // Back to reasonable offset for section detection
       const scrollPosition = window.scrollY + offset;
 
       for (let i = sections.length - 1; i >= 0; i--) {

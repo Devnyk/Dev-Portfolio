@@ -1,3 +1,5 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@1,900,700,500,301,701,300,501,401,901,400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -243,6 +245,11 @@ body:not(.dark) {
   color: #000000;
 }
 
+/* Default font family */
+body {
+  font-family: 'Satoshi', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
 /* Mobile optimizations */
 @media (max-width: 768px) {
   /* Reduce overall padding and margins on mobile */
@@ -386,5 +393,483 @@ body, html {
   #root {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
+  }
+}
+/* Sat
+oshi font fallbacks and optimizations */
+.font-satoshi {
+  font-family: 'Satoshi', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  text-rendering: optimizeLegibility;
+}
+
+/* Minimal mobile optimizations */
+@media (max-width: 768px) {
+  #about {
+    padding-top: 3rem;
+  }
+}
+
+/* Clean, minimal styling */
+.compact-section {
+  padding: 1rem 0;
+}
+
+/* Enhanced hover effects for mobile */
+@media (hover: hover) {
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* Touch-friendly interactions */
+@media (hover: none) {
+  .hover-scale:active {
+    transform: scale(0.98);
+  }
+}/* A
+bout section mobile viewport fixes */
+@media (max-width: 768px) {
+  #about {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
+    padding-bottom: 2rem;
+  }
+  
+  /* Ensure skill grid fits in mobile viewport */
+  .mobile-skill-grid {
+    max-height: 50vh;
+    overflow: visible;
+  }
+  
+  /* Compact mobile layout */
+  .mobile-about-content {
+    padding-bottom: 1rem;
+  }
+}
+
+/* Ensure proper spacing on very small screens */
+@media (max-width: 480px) {
+  #about {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}/* Liqui
+d Wave Photo Transition Styles */
+.liquid-wave-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.liquid-wave-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.1) 0%,
+    rgba(147, 51, 234, 0.1) 50%,
+    rgba(236, 72, 153, 0.1) 100%
+  );
+  mix-blend-mode: overlay;
+}
+
+/* Floating particles animation */
+@keyframes floatParticle {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.7;
+  }
+  33% { 
+    transform: translateY(-15px) translateX(5px) scale(1.2);
+    opacity: 1;
+  }
+  66% { 
+    transform: translateY(-8px) translateX(-3px) scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+.floating-particle {
+  animation: floatParticle 4s ease-in-out infinite;
+}
+
+.floating-particle:nth-child(2) {
+  animation-delay: 1s;
+  animation-duration: 3.5s;
+}
+
+.floating-particle:nth-child(3) {
+  animation-delay: 2s;
+  animation-duration: 4.5s;
+}
+
+/* Liquid wave SVG animations */
+@keyframes liquidWave {
+  0% { 
+    d: path("M0,100 Q100,80 200,90 T400,85 L400,100 Z");
+  }
+  50% { 
+    d: path("M0,100 Q100,60 200,70 T400,65 L400,100 Z");
+  }
+  100% { 
+    d: path("M0,100 Q100,40 200,50 T400,45 L400,100 Z");
+  }
+}
+
+.liquid-wave-path {
+  animation: liquidWave 3s ease-in-out infinite;
+}
+
+/* Scroll indicator pulse */
+@keyframes scrollPulse {
+  0%, 100% { 
+    opacity: 0.5;
+    transform: translateY(0px);
+  }
+  50% { 
+    opacity: 1;
+    transform: translateY(5px);
+  }
+}
+
+.scroll-indicator {
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+/* Enhanced photo container with better shadows */
+.photo-container {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.photo-container:hover {
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Dark mode adjustments for photo container */
+.dark .photo-container {
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.4),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.dark .photo-container:hover {
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(59, 130, 246, 0.2);
+}
+
+/* Mobile optimizations for liquid photo transition */
+@media (max-width: 768px) {
+  .photo-container {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  
+  .scroll-indicator {
+    display: none; /* Hide scroll indicator on mobile for cleaner look */
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .floating-particle,
+  .liquid-wave-path,
+  .scroll-indicator {
+    animation: none;
+  }
+  
+  .photo-container:hover {
+    transform: none;
+  }
+}/*
+ Enhanced Liquid Photo Transition Styles */
+.liquid-photo-container {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.liquid-photo-container:hover {
+  box-shadow: 
+    0 35px 70px -12px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(59, 130, 246, 0.2);
+  transform: translateY(-4px) scale(1.02);
+}
+
+/* Dark mode adjustments */
+.dark .liquid-photo-container {
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.dark .liquid-photo-container:hover {
+  box-shadow: 
+    0 35px 70px -12px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(59, 130, 246, 0.3);
+}
+
+/* Liquid shimmer effect */
+@keyframes liquidShimmer {
+  0% { 
+    transform: translateX(-100%) skewX(-12deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% { 
+    transform: translateX(200%) skewX(-12deg);
+    opacity: 0;
+  }
+}
+
+.liquid-shimmer {
+  animation: liquidShimmer 3s ease-in-out infinite;
+}
+
+/* Floating liquid drops */
+@keyframes liquidFloat {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px) scale(1) rotate(0deg);
+    opacity: 0.6;
+  }
+  25% { 
+    transform: translateY(-8px) translateX(3px) scale(1.1) rotate(90deg);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: translateY(-15px) translateX(-2px) scale(0.9) rotate(180deg);
+    opacity: 1;
+  }
+  75% { 
+    transform: translateY(-10px) translateX(4px) scale(1.05) rotate(270deg);
+    opacity: 0.7;
+  }
+}
+
+.liquid-drop {
+  animation: liquidFloat 4s ease-in-out infinite;
+  filter: blur(0.5px);
+}
+
+.liquid-drop:nth-child(2) {
+  animation-delay: 1.3s;
+  animation-duration: 3.5s;
+}
+
+.liquid-drop:nth-child(3) {
+  animation-delay: 2.1s;
+  animation-duration: 4.2s;
+}
+
+/* Responsive sizing */
+@media (max-width: 1024px) {
+  .liquid-photo-container {
+    width: 18rem !important; /* 288px */
+    height: 22rem !important; /* 352px */
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .liquid-photo-container {
+    width: 16rem !important; /* 256px */
+    height: 20rem !important; /* 320px */
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .liquid-photo-container {
+    width: 14rem !important; /* 224px */
+    height: 18rem !important; /* 288px */
+  }
+}
+
+/* Enhanced scroll indicator */
+@keyframes liquidPulse {
+  0%, 100% { 
+    opacity: 0.4;
+    transform: translateY(0px) scale(1);
+  }
+  50% { 
+    opacity: 1;
+    transform: translateY(8px) scale(1.1);
+  }
+}
+
+.liquid-scroll-indicator {
+  animation: liquidPulse 2.5s ease-in-out infinite;
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .liquid-drop,
+  .liquid-shimmer,
+  .liquid-scroll-indicator {
+    animation: none;
+  }
+  
+  .liquid-photo-container:hover {
+    transform: none;
+  }
+}/* 
+Professional Photo Container Styles */
+.professional-photo-container {
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.professional-photo-container:hover {
+  transform: translateY(-4px);
+}
+
+/* Animated Blue Border */
+@keyframes gradient-border {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient-border {
+  background-size: 200% 200%;
+  animation: gradient-border 3s ease infinite;
+}
+
+.bg-size-200 {
+  background-size: 200% 200%;
+}
+
+/* Professional Shadow Effects */
+.professional-photo-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 1rem;
+  padding: 2px;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #3b82f6);
+  background-size: 200% 200%;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  -webkit-mask-composite: xor;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation: gradient-border 3s ease infinite;
+}
+
+.professional-photo-container:hover::before {
+  opacity: 1;
+}
+
+/* Responsive sizing for professional photo */
+@media (max-width: 1024px) {
+  .professional-photo-container {
+    width: 20rem !important; /* 320px */
+    height: 25rem !important; /* 400px */
+  }
+}
+
+@media (max-width: 768px) {
+  .professional-photo-container {
+    width: 18rem !important; /* 288px */
+    height: 23rem !important; /* 368px */
+  }
+}
+
+@media (max-width: 480px) {
+  .professional-photo-container {
+    width: 16rem !important; /* 256px */
+    height: 21rem !important; /* 336px */
+  }
+}
+
+/* Subtle micro-animations */
+@keyframes subtle-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.professional-photo-container:not(:hover) {
+  animation: subtle-float 4s ease-in-out infinite;
+}
+
+/* Enhanced shadow on hover */
+.professional-photo-container:hover {
+  box-shadow: 
+    0 25px 50px -12px rgba(59, 130, 246, 0.25),
+    0 0 0 1px rgba(59, 130, 246, 0.1),
+    0 0 50px rgba(59, 130, 246, 0.15);
+}/* Smoo
+th Photo Container Styles */
+.smooth-photo-container {
+  position: relative;
+  box-shadow: 
+    0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.smooth-photo-container:hover {
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.15),
+    0 8px 16px -4px rgba(0, 0, 0, 0.1);
+}
+
+/* Black Label Slide Animation */
+.smooth-photo-container .absolute.bottom-0 {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Responsive sizing for smooth photo */
+@media (max-width: 1024px) {
+  .smooth-photo-container {
+    width: 20rem !important; /* 320px */
+    height: 25rem !important; /* 400px */
+  }
+}
+
+@media (max-width: 768px) {
+  .smooth-photo-container {
+    width: 18rem !important; /* 288px */
+    height: 23rem !important; /* 368px */
+  }
+}
+
+@media (max-width: 480px) {
+  .smooth-photo-container {
+    width: 16rem !important; /* 256px */
+    height: 21rem !important; /* 336px */
   }
 }
