@@ -66,7 +66,7 @@ const LiquidPhotoTransition = () => {
           />
 
           {/* Glassmorphism Label Slide Up */}
-          <div className={`absolute bottom-0 left-0 right-0 bg-black/20 backdrop-blur-md border-t border-white/10 transform transition-transform duration-400 ease-out rounded-b-2xl ${isMobile
+          <div className={`absolute bottom-0 left-0 right-0 bg-black/35 backdrop-blur-md border-t border-white/10 transform transition-transform duration-400 ease-out rounded-b-2xl ${isMobile
               ? (showMobileLabel ? 'translate-y-0' : 'translate-y-full')
               : 'translate-y-full group-hover:translate-y-0'
             }`}>
@@ -76,7 +76,7 @@ const LiquidPhotoTransition = () => {
                 <span className="text-white font-satoshi font-normal text-base">
                   a.k.a{' '}
                 </span>
-                <span className="text-blue-400 font-satoshi font-bold text-base">
+                <span className="text-blue-500 font-satoshi font-bold text-base">
                   dev
                 </span>
               </div>
