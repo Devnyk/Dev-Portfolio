@@ -31,7 +31,7 @@ import socketioIcon from '../assets/icons/Socket-io.png';
 import redisIcon from '../assets/icons/redisDB.png';
 import framerIcon from '../assets/icons/framer.png'
 
-const Skills = () => {
+const SkillsComponent = () => {
   const { isDark } = useTheme();
 
   const skillCategories = [
@@ -129,7 +129,7 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-20 bg-white dark:bg-black transition-colors duration-300">
+    <section id="skills" className="pt-24 lg:pt-32 pb-12 lg:pb-20 bg-gray-50 dark:bg-black transition-colors duration-300">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
@@ -137,9 +137,15 @@ const Skills = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {/* Section Header */}
-          <div className="text-center mb-8 lg:mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white">My Skills</h2>
+          {/* UPDATED Section Header */}
+          <div className="text-center mb-8 lg:mb-16" data-updated="true">
+            <motion.h2
+              variants={headerVariants}
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white font-satoshi"
+              data-title="skills-updated"
+            >
+              Skills
+            </motion.h2>
             <div className="w-24 h-1 mx-auto rounded bg-blue-600 dark:bg-blue-400"></div>
           </div>
 
@@ -151,15 +157,14 @@ const Skills = () => {
                 variants={categoryVariants}
                 className="group"
               >
-                {/* Category Box - Minimal and clean design */}
-                <div className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-3xl p-5 border border-gray-200 dark:border-gray-800 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 h-[380px] flex flex-col">
+                {/* Category Box - Enhanced visibility for light mode */}
+                <div className="bg-gradient-to-br from-white via-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-2xl lg:rounded-3xl p-4 lg:p-5 border-2 border-gray-300 dark:border-gray-700 shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-gray-900/50 hover:shadow-[0_20px_40px_rgb(0,0,0,0.15)] dark:hover:shadow-gray-800/60 hover:border-blue-400 dark:hover:border-blue-500 hover:-translate-y-1 transition-all duration-300 h-[320px] lg:h-[380px] flex flex-col">
 
-                  {/* Minimal Category Title */}
-                  <div className="mb-4">
-                    <h3 className="text-xl lg:text-2xl font-semibold text-gray-900 dark:text-white text-center mb-2">
+                  {/* Category Title - Simplified */}
+                  <div className="mb-3 lg:mb-4">
+                    <h3 className="text-lg lg:text-xl xl:text-2xl font-bold text-gray-800 dark:text-white text-center">
                       {category.title}
                     </h3>
-                    <div className="w-12 h-px bg-gray-300 dark:bg-gray-600 mx-auto"></div>
                   </div>
 
                   {/* Skills Icons Grid - Accommodate up to 12 icons (3 rows x 4 cols) */}
@@ -177,7 +182,7 @@ const Skills = () => {
                           }
                         }}
                         whileTap={{ scale: 0.95 }}
-                        className="group/skill cursor-pointer flex flex-col items-center justify-start py-1 min-h-[60px]"
+                        className="group/skill cursor-pointer flex flex-col items-center justify-start py-2 px-2 min-h-[50px] lg:min-h-[60px] rounded-xl transition-all duration-200"
                       >
                         {/* Icon - Optimized size */}
                         <motion.div
@@ -190,7 +195,7 @@ const Skills = () => {
                           <img
                             src={skill.icon}
                             alt={skill.name}
-                            className="w-8 h-8 sm:w-10 sm:h-10 object-contain filter transition-all duration-300 group-hover/skill:brightness-110 group-hover/skill:drop-shadow-md"
+                            className="w-7 h-7 lg:w-8 lg:h-8 xl:w-10 xl:h-10 object-contain filter transition-all duration-300 group-hover/skill:brightness-110 group-hover/skill:drop-shadow-md"
                             onError={(e) => {
                               console.error(`Failed to load icon for ${skill.name}:`, skill.icon);
                               e.target.style.display = 'none';
@@ -201,9 +206,9 @@ const Skills = () => {
                           />
                         </motion.div>
 
-                        {/* Skill Name - Optimized typography */}
+                        {/* Skill Name - Enhanced readability */}
                         <motion.p
-                          className="text-xs font-medium text-gray-700 dark:text-gray-300 text-center leading-tight group-hover/skill:text-blue-600 dark:group-hover/skill:text-blue-400 transition-colors duration-300"
+                          className="text-xs lg:text-xs font-semibold text-gray-800 dark:text-gray-300 text-center leading-tight group-hover/skill:text-blue-600 dark:group-hover/skill:text-blue-400 transition-colors duration-300"
                           whileHover={{
                             scale: 1.02,
                             transition: { duration: 0.2 }
@@ -224,4 +229,4 @@ const Skills = () => {
   );
 };
 
-export default Skills;
+export default SkillsComponent;

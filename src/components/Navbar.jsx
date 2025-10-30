@@ -19,12 +19,27 @@ const Navbar = () => {
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // Calculate offset based on screen size
+      // Calculate offset based on screen size and section
       const isMobile = window.innerWidth < 768;
-      const offset = isMobile ? 80 : 100; // Back to original offset for proper title positioning
+      let offset;
+
+      if (sectionId === 'skills') {
+        // Moderate offset for skills section to hide education section
+        offset = isMobile ? 80 : 0;
+      } else if (sectionId === 'projects') {
+        offset = isMobile ? 80 : 10;
+      }
+      else if (sectionId === 'contact') {
+        offset = isMobile ? 80 : 10;
+      }
       
+      else {
+        // Default offset for other sections
+        offset = isMobile ? 80 : 100;
+      }
+
       const elementPosition = element.offsetTop - offset;
-      
+
       window.scrollTo({
         top: elementPosition,
         behavior: 'smooth'
@@ -72,11 +87,10 @@ const Navbar = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                    activeSection === item.id
+                  className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${activeSection === item.id
                       ? 'text-blue-600 dark:text-blue-400'
                       : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                  }`}
+                    }`}
                 >
                   {item.name}
                 </button>
@@ -116,11 +130,10 @@ const Navbar = () => {
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left px-3 py-2 text-base font-medium transition-colors duration-200 ${
-                    activeSection === item.id
+                  className={`block w-full text-left px-3 py-2 text-base font-medium transition-colors duration-200 ${activeSection === item.id
                       ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
                       : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-900'
-                  }`}
+                    }`}
                 >
                   {item.name}
                 </button>

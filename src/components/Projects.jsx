@@ -89,7 +89,7 @@ const Projects = () => {
             {projects.map((project, index) => (
               <motion.div
                 key={project.id}
-                className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-2xl lg:rounded-3xl p-4 lg:p-8 border border-gray-200 dark:border-gray-800 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-500 group backdrop-blur-sm"
+                className="bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 rounded-2xl lg:rounded-3xl p-4 lg:p-8 border-2 border-gray-300 dark:border-gray-700 shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-gray-900/50 hover:shadow-[0_20px_40px_rgb(0,0,0,0.15)] dark:hover:shadow-gray-800/60 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-500 group backdrop-blur-sm"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}

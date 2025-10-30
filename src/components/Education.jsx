@@ -1,118 +1,316 @@
-import React from 'react';
 import 'remixicon/fonts/remixicon.css';
+import bput from '../assets/book/bput.png';
+import sher from '../assets/book/sher.png';
 
 const Education = () => {
-  const educationData = [
-    {
-      id: 1,
-      institution: 'Biju Patnaik University of Technology, Rourkela',
-      degree: 'B.Tech, Computer Science and Engineering',
-      duration: 'Sep 2020 - May 2024',
-      cgpa: '7.76/10',
-      icon: 'ri-graduation-cap-line',
-      color: 'blue'
-    },
-    {
-      id: 2,
-      institution: 'DAV Public School, Brajrajnagar',
-      degree: 'Class 12 (Science)',
-      duration: 'Aug 2018 - May 2020',
-      cgpa: '7.2/10',
-      icon: 'ri-book-open-line',
-      color: 'green'
-    }
-  ];
-
   return (
-    <section id="education" className="py-12 lg:py-20 bg-white dark:bg-black">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="animate-fade-in">
-          {/* Section Header */}
-          <div className="text-center mb-8 lg:mb-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white">Education</h2>
+    <section id="education" className="w-full px-6 bg-gray-50 dark:bg-black">
+      <div className="max-w-7xl mx-auto">
+          {/* Section Header - Mobile Optimized */}
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+              Educations
+            </h2>
             <div className="w-24 h-1 mx-auto rounded bg-blue-600 dark:bg-blue-400"></div>
           </div>
 
-          <div className="space-y-4 lg:space-y-6">
-            {educationData.map((edu, index) => (
-              <div
-                key={edu.id}
-                className={`bg-gray-50 dark:bg-gray-900 rounded-xl lg:rounded-2xl p-4 lg:p-6 xl:p-8 border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-300 hover:shadow-lg dark:hover:shadow-gray-900/20 hover:scale-[1.02] hover:-translate-y-1 group animate-slide-up`}
-                style={{ animationDelay: `${index * 0.2}s` }}
-              >
-                <div className="flex items-start gap-3 lg:gap-4">
-                  <div className={`flex-shrink-0 w-12 h-12 lg:w-14 lg:h-14 ${
-                    edu.color === 'blue' 
-                      ? 'bg-blue-100 dark:bg-blue-900/30 group-hover:bg-blue-200 dark:group-hover:bg-blue-900/50' 
-                      : 'bg-green-100 dark:bg-green-900/30 group-hover:bg-green-200 dark:group-hover:bg-green-900/50'
-                  } rounded-xl flex items-center justify-center transition-all duration-300 hover:rotate-6`}>
-                    <i className={`${edu.icon} ${
-                      edu.color === 'blue' 
-                        ? 'text-blue-600 dark:text-blue-400' 
-                        : 'text-green-600 dark:text-green-400'
-                    } text-xl lg:text-2xl`}></i>
-                  </div>
-                  
-                  <div className="flex-1">
-                    <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-2 lg:gap-4 mb-3">
-                      <div className="flex-1">
-                        <h3 className="text-lg lg:text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 leading-tight">
-                          {edu.institution}
-                        </h3>
-                        <p className="text-base lg:text-lg text-gray-700 dark:text-gray-300 mb-2">
-                          {edu.degree}
-                        </p>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {edu.duration}
-                        </p>
-                      </div>
-                      
-                      <div className={`${
-                        edu.color === 'blue' 
-                          ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' 
-                          : 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
-                      } px-3 py-1.5 lg:px-4 lg:py-2 rounded-full text-sm font-semibold hover:scale-110 transition-transform duration-300 self-start lg:self-center`}>
-                        CGPA: {edu.cgpa}
-                      </div>
-                    </div>
+        {/* MOBILE VERSION - Only visible on screens smaller than md (768px) */}
+        <div className="block md:hidden">
+          <div className="relative h-[400px] flex items-end justify-center gap-1 px-4 overflow-hidden">
+
+            {/* Mobile Book 1 - Class 10 (Purple) */}
+            <div
+              className="relative w-16 h-56 rounded-md shadow-xl transition-all hover:-translate-y-2 duration-500"
+              style={{
+                background: '#7C5DFF',
+                transform: 'rotate(0deg)',
+                transformOrigin: 'bottom center',
+              }}
+            >
+              <div className="absolute inset-0 p-2 flex flex-col justify-between text-white font-helvetica">
+                <div className="flex flex-col items-center mt-12">
+                  <span className="text-[12px] font-semibold italic">ICSE</span>
+                  <span className="text-[9px] font-light">Board</span>
+                  <div className="w-px h-24 bg-white mx-auto"></div>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-baseline justify-center gap-0.5">
+                    <span className="text-3xl font-semibold leading-none italic">10</span>
+                    <span className="text-sm font-light italic">th</span>
                   </div>
                 </div>
               </div>
-            ))}
+              <div className="absolute inset-x-0 top-0 h-1 bg-white/20 rounded-t-md"></div>
+            </div>
+
+            {/* Mobile Book 2 - Class 12 (Blue) */}
+            <div
+              className="relative w-16 h-64 rounded-md shadow-xl transition-all hover:-translate-y-2 duration-500"
+              style={{
+                background: '#0236FC',
+                transform: 'rotate(0deg)',
+                transformOrigin: 'bottom center',
+              }}
+            >
+              <div className="absolute inset-0 p-2 flex flex-col justify-between text-white font-helvetica">
+                <div className="flex flex-col items-center gap-2">
+                  <div
+                    className="text-5xl font-normal tracking-tight italic mt-6"
+                    style={{
+                      writingMode: 'vertical-rl',
+                      transform: 'rotate(180deg)'
+                    }}
+                  >
+                    Science
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-baseline justify-center gap-0.5">
+                    <span className="text-3xl font-semibold leading-none italic">12</span>
+                    <span className="text-sm font-light italic">th</span>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-x-0 top-0 h-1 bg-white/20 rounded-t-md"></div>
+            </div>
+
+            {/* Mobile Book 3 - BTech CSE (Navy) */}
+            <div
+              className="relative w-20 h-72 rounded-md shadow-xl transition-all hover:-translate-y-2 duration-500 ml-4"
+              style={{
+                background: '#01033E',
+                transform: 'rotate(-4.5deg)',
+                transformOrigin: 'bottom left',
+                // marginBottom: '5px',
+              }}
+            >
+              <div className="absolute inset-0 p-2 flex flex-col justify-between font-helvetica">
+                <div className="flex flex-col items-center">
+                  <div
+                    className="text-5xl font-bold tracking-tight text-[#0236FC] mt-8"
+                    style={{
+                      writingMode: 'vertical-rl',
+                      transform: 'rotate(180deg)',
+                    }}
+                  >
+                    BTech
+                  </div>
+                  <span className=" text-white">CSE</span>
+                </div>
+                <div className="flex flex-col items-center text-white gap-0.5">
+                  <div className="w-4 h-4 rounded-full bg-white/10 flex items-center justify-center">
+                    <img src={bput} alt="" />
+                  </div>
+                  <div className='flex flex-col'>
+                    <span className="text-[10px] font-medium text-center">
+                    BPUT
+                  </span>
+                  <span className="text-[10px] font-light text-center">
+                    University
+                  </span>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-x-0 top-0 h-1 bg-white/10 rounded-t-md"></div>
+            </div>
+
+            {/* Mobile Book 4 - Bootcamp (Teal/Green) */}
+            <div
+              className="relative w-16 h-72 rounded-md shadow-xl transition-all hover:-translate-y-2 duration-500 ml-8"
+              style={{
+                background: 'linear-gradient(180deg, #086250, #0B2E28)',
+                transform: 'rotate(-11deg)',
+                transformOrigin: 'bottom left',
+                // marginBottom: '10px',
+              }}
+            >
+              <div className="absolute inset-0 p-2 flex flex-col justify-between font-helvetica">
+                <div className="flex flex-col text-center">
+                  <span className="text-[12px] font-medium text-[#DBED3B]">KODR</span>
+                  <span className="text-[9px] font-normal text-white">Batch 2</span>
+                </div>
+                <div className="flex flex-col items-center gap-2">
+                  <div
+                    className="text-4xl font-medim tracking-tight text-[#DBED3B] italic "
+                    style={{
+                      writingMode: 'vertical-rl',
+                      transform: 'rotate(180deg)',
+                    }}
+                  >
+                    Bootcamp
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <div className="w-8 h-8 flex items-center justify-center">
+                      <span className="text-[10px]">
+                        <img src={sher} alt="" />
+                      </span>
+                    </div>
+                    <span className="text-[10px] font-normal text-white text-center leading-tight">
+                      Sheryians
+                    </span>
+                    <span className="text-[7px] font-light text-white text-center leading-tight">
+                      Coding School
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-x-0 top-0 h-1 bg-white/20 rounded-t-md"></div>
+            </div>
           </div>
         </div>
+
+        {/* DESKTOP VERSION - Only visible on md screens and larger (768px+) */}
+        <div className="hidden md:block">
+          <div className="relative h-[500px] flex items-end justify-center gap-1 px-4">
+
+            {/* Desktop Book 1 - Class 10 (Purple) */}
+            <div
+              className="relative w-24 h-80 rounded-lg shadow-2xl transition-all hover:-translate-y-4 duration-500"
+              style={{
+                background: '#7C5DFF',
+                transform: 'rotate(0deg)',
+                transformOrigin: 'bottom center',
+              }}
+            >
+              <div className="absolute inset-0 p-4 flex flex-col justify-between text-white font-helvetica">
+                <div className="flex flex-col text-center mt-24">
+                  <span className="text-xl font-semibold italic">ICSE</span>
+                  <span className="text-sm font-medium">Board</span>
+                  <div className="w-[1.3px] h-24 bg-white mx-auto"></div>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-baseline justify-center gap-1 mt-3">
+                    <span className="text-5xl font-black leading-none italic">10</span>
+                    <span className="text-lg font-medium italic">th</span>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-x-0 top-0 h-1 bg-white/20 rounded-t-lg"></div>
+            </div>
+
+            {/* Desktop Book 2 - Class 12 (Blue) */}
+            <div
+              className="relative w-24 h-96 rounded-lg shadow-2xl transition-all hover:-translate-y-4 duration-500"
+              style={{
+                background: '#0236FC',
+                transform: 'rotate(0deg)',
+                transformOrigin: 'bottom center',
+              }}
+            >
+              <div className="absolute inset-0 p-4 flex flex-col justify-between text-white font-helvetica">
+                <div className="flex flex-col items-center gap-4">
+                  <div
+                    className="text-6xl font-medium tracking-tight italic mt-16"
+                    style={{
+                      writingMode: 'vertical-rl',
+                      transform: 'rotate(180deg)'
+                    }}
+                  >
+                    Science
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="flex items-baseline justify-center gap-1 mt-12">
+                    <span className="text-5xl font-black leading-none italic">12</span>
+                    <span className="text-lg font-medium italic">th</span>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-x-0 top-0 h-1 bg-white/20 rounded-t-lg"></div>
+            </div>
+
+            {/* Desktop Book 3 - BTech CSE (Navy) */}
+            <div
+              className="relative w-24 h-[420px] rounded-lg shadow-2xl transition-all hover:-translate-y-4 hover:rotate-[-10deg] duration-500 ml-10"
+              style={{
+                background: '#01033E',
+                transform: 'rotate(-6deg)',
+                transformOrigin: 'bottom left',
+              }}
+            >
+              <div className="absolute inset-0 p-4 flex flex-col justify-between font-helvetica">
+                <div className="flex flex-col items-center gap-1">
+                  <div
+                    className="text-6xl font-semibold tracking-tight mt-16"
+                    style={{
+                      writingMode: 'vertical-rl',
+                      transform: 'rotate(180deg)',
+                      background: '#0236FC',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                    }}
+                  >
+                    BTech
+                  </div>
+                  <span className="text-xl font-semibold text-white">CSE</span>
+                </div>
+                <div className="flex flex-col items-center text-white mt-4 gap-0.5">
+                  <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center">
+                    <img src={bput} alt="" />
+                  </div>
+                  <div className='flex flex-col'>
+                    <span className="text-[15px] font-semibold text-center">
+                    BPUT 
+                  </span>
+                  <span className="text-xs font-light text-white">University</span>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-x-0 top-0 h-1 bg-white/10 rounded-t-lg"></div>
+            </div>
+
+            {/* Desktop Book 4 - Bootcamp (Teal/Green) */}
+            <div
+              className="relative w-24 h-[440px] rounded-lg shadow-2xl transition-all hover:-translate-y-4 hover:rotate-[-20deg] duration-500 ml-16"
+              style={{
+                background: 'linear-gradient(180deg, #086250, #0B2E28)',
+                transform: 'rotate(-14deg)',
+                transformOrigin: 'bottom left',
+              }}
+            >
+              <div className="absolute inset-0 p-4 flex flex-col justify-between font-helvetica">
+                <div className="flex flex-col text-center">
+                  <span className="text-[16px] font-semibold text-[#DBED3B]">KODR</span>
+                  <span className="text-[12px] font-normal text-white">Batch 2</span>
+                </div>
+                <div className="flex flex-col items-center gap-4">
+                  <div
+                    className="text-6xl font-medium tracking-tight text-[#DBED3B] italic"
+                    style={{
+                      writingMode: 'vertical-rl',
+                      transform: 'rotate(180deg)',
+                    }}
+                  >
+                    Bootcamp
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 flex items-center justify-center">
+                      <span className="text-sm">
+                        <img src={sher} alt="" />
+                      </span>
+                    </div>
+                    <span className="text-sm font-medium text-white text-center leading-tight">
+                      Sheryians
+                    </span>
+                    <span className="text-[9px] font-light text-white text-center leading-tight">
+                      Coding School
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute inset-x-0 top-0 h-1 bg-white/20 rounded-t-lg"></div>
+            </div>
+          </div>
+        </div>
+
+        {/* Gray Base Bar */}
+        <div className="mt-1 flex justify-center">
+          <div
+            className="w-full max-w-5xl h-4 rounded-full bg-gradient-to-r from-transparent via-gray-400 dark:via-gray-600 to-transparent shadow-lg"
+          ></div>
+        </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out;
-        }
-
-        .animate-slide-up {
-          opacity: 0;
-          animation: slide-up 0.6s ease-out forwards;
-        }
-      `}</style>
     </section>
   );
 };
